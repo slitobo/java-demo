@@ -2,7 +2,15 @@ stages:
 - name: 编译
   steps:
   - runScriptConfig:
-      image: java:8
-      shellScript: echo 1
-timeout: 60
+      image: maven:3-jdk-7
+      shellScript: clean install -Dmaven.test.skip=true
+- name: 打包镜像
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: java-demo:20190822
+      pushRemote: true
+      registry: 127.0.0.1:34662
+timeout: 30
 notification: {}
