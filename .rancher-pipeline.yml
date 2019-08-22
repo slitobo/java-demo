@@ -3,7 +3,7 @@ stages:
   steps:
   - runScriptConfig:
       image: maven:3-jdk-7
-      shellScript: clean install -Dmaven.test.skip=true
+      shellScript: mvn clean install -Dmaven.test.skip=true
 - name: 打包镜像
   steps:
   - publishImageConfig:
