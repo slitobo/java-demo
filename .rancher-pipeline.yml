@@ -13,4 +13,11 @@ stages:
       pushRemote: true
       registry: 127.0.0.1:34662
 timeout: 30
-notification: {}
+notification:
+  recipients:
+  - recipient: '#c5game'
+    notifier: c-jphrs:n-fffc6
+  condition:
+  - Success
+  - Changed
+  - Failed
