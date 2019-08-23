@@ -17,6 +17,8 @@ notification:
   recipients:
   - recipient: '#c5game'
     notifier: c-jphrs:n-fffc6
+  - recipient: https://oapi.dingtalk.com/robot/send?access_token=9604802a01882dd45c1c6a1da2186415bd7507f20b219934bc218082ede797a7
+    notifier: c-jphrs:n-qbwfg
   condition:
   - Success
   - Changed
