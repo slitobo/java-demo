@@ -1,5 +1,4 @@
 env.APPNAME = "java-demo"
-env.REPO_URL = "https://github.com/slitobo/java-demo.git"
 env.REPOSITORY = "192.168.20.188:5001/slitobo/${APPNAME}:${BUILD_TIMESTAMP}"
 node{
 	stage('Git Checkout'){
@@ -15,10 +14,10 @@ node{
 		'''
     }
 	stage('Deploy to Docker') {
-       		// 此处只是用一台机器模拟四套环境，正常启动一个环境就行
+       		// 此处只是用一台机器模拟四套环境
 		sh '''
-		ansible $ENV -a "docker rm -f java-demo-$ENV" | true
-		ansible $ENV -a "docker  run -itd --name java-demo-$ENV -p 88:8080 $REPOSITORY"
+		ansible $ENV -a "docker rm -f $APPNAME-$ENV" | true
+		ansible $ENV -a "docker  run -itd --name $APPNAME-$ENV -p 88:8080 $REPOSITORY"
         	'''
     }
 }
