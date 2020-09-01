@@ -1,3 +1,4 @@
+env.MYTOOL_VERSION = '1.33'
 def APPNAME = "java-demo"
 def REPOSITORY1 = "192.168.20.188:5001/slitobo/${APPNAME}:${BUILD_TIMESTAMP}"
 node{
@@ -8,9 +9,8 @@ node{
 		sh '/usr/local/apache-maven-3.5.0/bin/mvn clean package -Dmaven.test.skip=true'
 	}
 	stage('Docker build') {
-		R1 = ${REPOSITORY1}
 		sh ''' 
-		echo ${R1}
+		echo $MYTOOL_VERSION
 		REPOSITORY="192.168.20.188:5001/slitobo/java-demo:$ENV"
         	docker build -t ${REPOSITORY} .
         	docker push ${REPOSITORY}
