@@ -11,7 +11,6 @@ node{
 	}
 	stage('Docker build') {
 		sh '''
-		echo $GIT_URL
         	docker build -t $REPOSITORY .
         	docker push $REPOSITORY
 		'''
