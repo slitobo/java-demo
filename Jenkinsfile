@@ -1,17 +1,25 @@
-#!/usr/bin/env groovy
-
 pipeline {
-    agent none
-
-    stages {
-        stage('Break Jenkins') {
-            agent any
-            steps {    
-                sh '''#!/bin/bash
-                  ENV_VAR=$(awk -F'-' '{print $2 }' <<< $(ls *))
-                  echo $ENV_VAR
-                '''
-            }
-        }
+    node("master") {
+	stage('Git Checkout'){
+          git branch: '$BRANCH', url: 'https://github.com/slitobo/java-demo.git'
+	}        
+	stage('Maven Build') {
+		sh '/usr/local/apache-maven-3.5.0/bin/mvn clean package -Dmaven.test.skip=true'
+	}
+	stage('Docker build') {
+		sh ''' 
+		REPOSITORY="192.168.20.188:5001/slitobo/java-demo:$ENV"
+        docker build -t ${REPOSITORY} .
+        docker push ${REPOSITORY}
+		'''
+    }
+	stage('Deploy to Docker') {
+       // 此处只是用一台机器模拟四套环境，正常启动一个环境就行
+        sh '''
+        REPOSITORY="192.168.20.188:5001/slitobo/java-demo:$ENV"
+        ansible $ENV -a "docker rm -f java-demo-$ENV" | true
+        ansible $ENV -a "docker  run -itd --name java-demo-$ENV -p 88:8080 ${REPOSITORY}"
+        '''
+    }
     }
 }
