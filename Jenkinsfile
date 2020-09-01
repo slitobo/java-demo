@@ -3,7 +3,7 @@ env.REPO_URL = "https://github.com/slitobo/java-demo.git"
 env.REPOSITORY = "192.168.20.188:5001/slitobo/${APPNAME}:${BUILD_TIMESTAMP}"
 node{
 	stage('Git Checkout'){
-		echo $REPO_URL
+		echo $BRANCH
 		git branch: '$BRANCH', url: 'https://github.com/slitobo/java-demo.git'
 	}        
 	stage('Maven Build') {
