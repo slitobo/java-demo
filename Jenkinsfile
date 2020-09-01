@@ -4,7 +4,7 @@ env.REPOSITORY = "192.168.20.188:5001/slitobo/${APPNAME}:${BUILD_TIMESTAMP}"
 node{
 	stage('Git Checkout'){
 		echo $BRANCH
-		git branch: $BRANCH, url: ${REPO_URL}
+		git branch: '$BRANCH', url: '${REPO_URL}'
 	}        
 	stage('Maven Build') {
 		sh '/usr/local/apache-maven-3.5.0/bin/mvn clean package -Dmaven.test.skip=true'
