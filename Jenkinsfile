@@ -4,7 +4,7 @@ node{
 	stage('Git Checkout'){
           	// git branch: '$BRANCH', url: 'https://github.com/slitobo/java-demo.git'
 		// git branch: '$BRANCH', url: 'GIT_REPO_URL'
-		echo $GIT_BRANCH
+		echo $BRANCH
 		echo $GIT_REPO_URL
 	}        
 	stage('Maven Build') {
