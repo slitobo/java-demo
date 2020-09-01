@@ -1,5 +1,5 @@
 env.APPNAME = "java-demo"
-env.REPOSITORY = "192.168.20.188:5001/slitobo/${APPNAME}:${BUILD_TIMESTAMP}"
+env.REPOSITORY = "localhost/${APPNAME}:${BUILD_TIMESTAMP}"
 node{
 	stage('Git Checkout'){
 		git branch: '$BRANCH', url: 'https://github.com/slitobo/java-demo.git'
@@ -10,7 +10,7 @@ node{
 	stage('Docker build') {
 		sh '''
         	docker build -t $REPOSITORY .
-        	docker push $REPOSITORY
+        	#docker push $REPOSITORY
 		'''
     }
 	stage('Deploy to Docker') {
